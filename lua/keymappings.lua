@@ -20,6 +20,7 @@ vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true, silent = true })
 -- I hate escape
 vim.api.nvim_set_keymap("i", "jk", "<ESC>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("t", "jk", "<C-\\><C-n>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "jk", "<C-\\><C-n>", { noremap = true, silent = true })
 
 -- buffers
 vim.api.nvim_set_keymap("n", "<Leader>bn", ":bnext<CR>", { noremap = true, silent = true })
@@ -65,10 +66,10 @@ vim.api.nvim_set_keymap("n", "<Leader>ps", ":PackerStatus<CR>", { noremap = true
 vim.api.nvim_set_keymap("n", "+", "<c-W>+", { noremap = true, silent=true })
 vim.api.nvim_set_keymap("n", "-", "<c-W>-", { noremap = true, silent=true })
 
--- copy/paste
+-- yank/paste
 vim.api.nvim_set_keymap("v", "<C-y>", "\"+y", { noremap = true, silent=true })
 vim.api.nvim_set_keymap("n", "<c-p><c-p>", "\"+p", { silent=true })
-vim.api.nvim_set_keymap("n", "Y", "y+", { noremap = true, silent=true })
+vim.api.nvim_set_keymap("n", "Y", "y$", { noremap = true, silent=true })
 
 -- sessions
 vim.api.nvim_set_keymap("n", "<Leader>sc", ":mksession! ~/.config/nvim/sessions/", { noremap = true })
@@ -79,6 +80,12 @@ vim.api.nvim_set_keymap("n", "<Leader>ti", ":!source .env | terraform init -no-c
 vim.api.nvim_set_keymap("n", "<Leader>tp", ":!terraform plan -no-color -out=last_plan.bin > last_plan.log<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<Leader>ta", ":!terraform apply -no-color last_plan.bin<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<Leader>op", ":vsplit last_plan.log<CR>", { noremap = true })
+
+-- docker-compose
+vim.api.nvim_set_keymap("n", "<Leader>db", ":!docker-compose build<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>du", ":!docker-compose up -d<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>dd", ":!docker-compose down<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>dr", ":!docker-compose restart<CR>", { noremap = true })
 
 -- telescope
 vim.api.nvim_set_keymap("n", "<Leader>ff", ":Telescope find_files<CR>", { noremap = true })
