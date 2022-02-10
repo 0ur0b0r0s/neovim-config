@@ -1,5 +1,6 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
+local use = require('packer').use
 
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
@@ -29,7 +30,6 @@ return require('packer').startup(function()
     use 'tpope/vim-fugitive'
     use 'mhinz/vim-signify'
     use 'junegunn/gv.vim'
-    -- use 'kabouzeid/nvim-lspinstall'
     use 'hrsh7th/nvim-compe'
     use {
         'nvim-telescope/telescope.nvim',
