@@ -7,7 +7,7 @@ require("settings")
 
 require("transparent").setup({
   enable = true,
-  extra_groups = { 
+  extra_groups = {
     "BufferLineTabClose",
     "BufferlineBufferSelected",
     "BufferLineFill",
