@@ -18,7 +18,14 @@ require("transparent").setup({
 })
 
 require'lspconfig'.sumneko_lua.setup{
-  cmd = { "/usr/bin/lua-language-server" };
+  cmd = { "/usr/bin/lua-language-server" },
+  settings = {
+    Lua = {
+      diagnostics = {
+        globals = {'vim'}
+      }
+    }
+  }
 }
 
 require'lspconfig'.terraformls.setup{
