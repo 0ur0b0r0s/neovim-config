@@ -25,8 +25,8 @@ return require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use {
-      'hoob3rt/lualine.nvim',
-      requires = {'kyazdani42/nvim-web-devicons', opt = true}
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
     use {
         'neovim/nvim-lsp',
@@ -43,6 +43,7 @@ return require('packer').startup(function()
     use 'mhinz/vim-signify'
     use 'junegunn/gv.vim'
     use 'hrsh7th/nvim-compe'
+    use 'chrisbra/unicode.vim'
     use {
         'nvim-telescope/telescope.nvim',
         requires = {{ 'nvim-lua/plenary.nvim'}, {'nvim-lua/popup.nvim' }}
