@@ -1,18 +1,19 @@
 local lualine = require('lualine')
 
 local colors = {
-  bg       = '#202328',
-  fg       = '#00ff00',
-  yellow   = '#ffff00',
-  cyan     = '#008080',
-  darkblue = '#081633',
-  green    = '#00ff50',
-  orange   = '#FF8800',
-  violet   = '#ff00ff',
-  magenta  = '#b638ff',
-  blue     = '#51afef',
-  red      = '#ff0000',
-  black    = '#101010',
+  bg          = '#202328',
+  fg          = '#00ffff',
+  yellow      = '#ffff00',
+  cyan        = '#008080',
+  darkblue    = '#081633',
+  green       = '#00ff50',
+  orange      = '#FF8800',
+  violet      = '#ff00ff',
+  magenta     = '#b638ff',
+  blue        = '#00ffff',
+  red         = '#ff0000',
+  black       = '#101010',
+  light_green = '#00ff00',
 }
 
 local conditions = {
@@ -114,17 +115,18 @@ ins_left {
 ins_left {
   'filesize',
   cond = conditions.buffer_not_empty,
+  color = { fg = colors.light_green, gui = 'bold' },
 }
 
 ins_left {
   'filename',
   cond = conditions.buffer_not_empty,
-  color = { fg = colors.fg, gui = 'bold' },
+  color = { fg = colors.light_green, gui = 'bold' },
 }
 
-ins_left { 'location' }
+ins_left { 'location', color = { fg = colors.light_green, gui = 'bold' } }
 
-ins_left { 'progress', color = { fg = colors.fg, gui = 'bold' } }
+ins_left { 'progress', color = { fg = colors.light_green, gui = 'bold' } }
 
 ins_left {
   'diagnostics',
@@ -163,14 +165,14 @@ ins_left {
     return msg
   end,
   icon = '',
-  color = { fg = '#8f8f8f', gui = 'bold' },
+  color = { fg = '#bbc2cf', gui = 'bold' },
 }
 
 ins_right {
   'fileformat',
   fmt = string.upper,
   icons_enabled = true,
-  color = { fg = colors.fg, gui = 'bold' },
+  color = { fg = colors.blue, gui = 'bold' },
 }
 
 ins_right {
@@ -188,7 +190,7 @@ ins_right {
   'diff',
   symbols = { added = ' ', modified = '柳', removed = ' ' },
   diff_color = {
-    added = { fg = colors.fg },
+    added = { fg = colors.light_green },
     modified = { fg = colors.yellow },
     removed = { fg = colors.red },
   },
