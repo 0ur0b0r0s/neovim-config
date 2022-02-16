@@ -29,7 +29,6 @@ local conditions = {
   end,
 }
 
--- Config
 local config = {
   options = {
     -- Disable sections and component separators
@@ -45,16 +44,15 @@ local config = {
   },
   sections = {
     -- these are to remove the defaults
+    -- These will be filled later
     lualine_a = {},
     lualine_b = {},
     lualine_y = {},
     lualine_z = {},
-    -- These will be filled later
     lualine_c = {},
     lualine_x = {},
   },
   inactive_sections = {
-    -- these are to remove the defaults
     lualine_a = {},
     lualine_b = {},
     lualine_y = {},
@@ -78,14 +76,12 @@ ins_left {
   function()
     return '▊'
   end,
-  color = { fg = colors.black }, -- Sets highlighting of component
-  padding = { left = 0, right = 1 }, -- We don't need space before this
+  color = { fg = colors.black },
+  padding = { left = 0, right = 1 },
 }
 
 ins_left {
-  -- mode component
   function()
-    -- auto change color according to neovims mode
     local mode_color = {
       n = colors.red,
       i = colors.fg,
@@ -116,7 +112,6 @@ ins_left {
 }
 
 ins_left {
-  -- filesize component
   'filesize',
   cond = conditions.buffer_not_empty,
 }
@@ -171,19 +166,16 @@ ins_left {
   color = { fg = '#8f8f8f', gui = 'bold' },
 }
 
--- Add components to right sections
 ins_right {
-  'o:encoding', -- option component same as &encoding in viml
-  fmt = string.upper, -- I'm not sure why it's upper case either ;)
-  cond = conditions.hide_in_width,
+  'fileformat',
+  fmt = string.upper,
+  icons_enabled = true,
   color = { fg = colors.fg, gui = 'bold' },
 }
 
 ins_right {
-  'fileformat',
-  fmt = string.upper,
-  icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-  color = { fg = colors.fg, gui = 'bold' },
+  'filetype',
+  icons_enabled = true,
 }
 
 ins_right {
@@ -194,7 +186,6 @@ ins_right {
 
 ins_right {
   'diff',
-  -- Is it me or the symbol for modified us really weird
   symbols = { added = ' ', modified = '柳', removed = ' ' },
   diff_color = {
     added = { fg = colors.fg },
@@ -212,5 +203,5 @@ ins_right {
   padding = { left = 1 },
 }
 
--- Now don't forget to initialize lualine
+
 lualine.setup(config)
