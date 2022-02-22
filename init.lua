@@ -1,9 +1,9 @@
-require("plugins")
-require("keymappings")
-require("lualine-conf")
-require("compe-conf")
-require("telescope")
 require("settings")
+require("keymappings")
+require("plugins.plugins")
+require("plugins.lualine-conf")
+require("plugins.compe-conf")
+require("plugins.telescope")
 
 require("transparent").setup({
   enable = true,
