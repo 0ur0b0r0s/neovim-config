@@ -8,12 +8,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
   execute 'packadd packer.nvim'
 end
 
-require('telescope').setup{
-  defaults = {
-    file_ignore_patterns = {'undodir','sessions','packer_compiled'}
-  }
-}
-
 vim.cmd([[
   augroup packer_user_config
     autocmd!
