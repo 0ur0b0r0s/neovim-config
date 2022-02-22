@@ -1,6 +1,6 @@
 require("settings")
 require("keymappings")
-require("plugins.plugins")
+require("plugins.packer")
 require("plugins.lualine-conf")
 require("plugins.compe-conf")
 require("plugins.telescope")
