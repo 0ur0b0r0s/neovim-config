@@ -42,3 +42,8 @@ require'lspconfig'.bashls.setup{
   cmd = { '/usr/bin/bash-language-server', 'start' },
   filetypes = { 'sh' }
 }
+
+require'lspconfig'.tsserver.setup{
+  cmd = { '/home/kr4k3n/.nvm/versions/node/v16.16.0/bin/typescript-language-server', '--stdio' },
+  filetypes = { 'js', 'javascript' }
+}
