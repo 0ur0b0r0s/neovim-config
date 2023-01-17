@@ -149,6 +149,8 @@ vim.cmd [[
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
+
+vim.keymap.set("n", ";", ":", { noremap = true })
 vim.keymap.set("n", "<c-w><c-q>", ":wq<CR>", { noremap = true, silent=true })
 vim.keymap.set("n", "<c-w><c-w>", ":w!<CR>", { noremap = true, silent=true })
 vim.keymap.set("n", "<c-q><c-q>", ":q!<CR>", { noremap = true, silent=true })
