@@ -106,19 +106,42 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- See `:help vim.o`
 
 -- Set highlight on search
+vim.bo.autoindent = true
+vim.bo.smartindent = true
+vim.bo.swapfile = false
+vim.o.backup = false
+vim.o.errorbells = false
+vim.o.expandtab = true
+vim.o.hidden = true
 vim.o.hlsearch = false
+vim.o.ignorecase = true
+vim.o.incsearch = true
+vim.o.shiftwidth = 4
+vim.o.smartcase = true
+vim.o.softtabstop = 0
+vim.o.syntax = 'on'
+vim.o.tabstop = 4
+vim.o.termguicolors = true
+vim.o.undofile = true
+vim.o.updatetime = 250
 vim.o.wrap = false
+vim.o.completeopt = 'menuone,noselect'
+vim.o.undodir = vim.fn.stdpath('config') .. '/undodir'
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = 'yes'
-vim.o.undofile = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.updatetime = 250
-vim.o.termguicolors = true
-vim.cmd [[colorscheme tokyonight]]
--- Set completeopt to have a better completion experience
-vim.o.completeopt = 'menuone,noselect'
+vim.wo.wrap = false
+vim.cmd [[
+        silent! colorscheme tokyonight-night
+        autocmd ColorScheme * highlight Normal guibg=NONE ctermbg=NONE
+        autocmd ColorScheme * highlight LineNr guibg=NONE guifg=white 
+        autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+        autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
+        autocmd FileType tf setlocal ts=2 sts=2 sw=2 expandtab
+        autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab
+        autocmd FileType sh setlocal ts=2 sts=2 sw=2 expandtab
+        set laststatus=3
+    ]]
 
 -- [[ Basic Keymaps ]]
 -- Set <space> as the leader key
@@ -168,8 +191,8 @@ vim.keymap.set("n", "<Leader>gnb", ":Git checkout -b ", { noremap = true })
 
 -- signify
 vim.keymap.set("n", "<Leader>st", ":SignifyToggle<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>j", ":call sy#jump#next_hunk(v:count1)<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<Leader>k", ":call sy#jump#prev_hunk(v:count1)<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<Leader>j", ":Gitsigns next_hunk<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<Leader>k", ":Gitsigns prev_hunk<CR>", { noremap = true, silent = true })
 
 -- open/source lua config
 vim.keymap.set("n", "<c-e><c-v>", ":tabnew ~/.config/nvim/init.lua<CR>", { noremap = true, silent=true })
