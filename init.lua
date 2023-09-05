@@ -76,23 +76,23 @@ require('packer').startup(function(use)
     plugins(use)
   end
 
-  if is_bootstrap then
-    require('packer').sync()
+if is_bootstrap then
+  require('packer').sync()
   end
 end)
 
--- When we are bootstrapping a configuration, it doesn't
--- make sense to execute the rest of the init.lua.
---
--- You'll need to restart nvim, and then it will work.
-if is_bootstrap then
-  print '=================================='
-  print '    Plugins are being installed'
-  print '    Wait until Packer completes,'
-  print '       then restart nvim'
-  print '=================================='
-  return
-end
+  -- When we are bootstrapping a configuration, it doesn't
+  -- make sense to execute the rest of the init.lua.
+  --
+  -- You'll need to restart nvim, and then it will work.
+  if is_bootstrap then
+    print '=================================='
+    print '    Plugins are being installed'
+    print '    Wait until Packer completes,'
+    print '       then restart nvim'
+    print '=================================='
+    return
+  end
 
 -- Automatically source and re-compile packer whenever you save this init.lua
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
@@ -104,8 +104,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
-
--- Set highlight on search
 vim.bo.autoindent = true
 vim.bo.smartindent = true
 vim.bo.swapfile = false
@@ -116,11 +114,11 @@ vim.o.hidden = true
 vim.o.hlsearch = false
 vim.o.ignorecase = true
 vim.o.incsearch = true
-vim.o.shiftwidth = 4
+vim.o.shiftwidth = 2
 vim.o.smartcase = true
 vim.o.softtabstop = 0
 vim.o.syntax = 'on'
-vim.o.tabstop = 4
+vim.o.tabstop = 2
 vim.o.termguicolors = true
 vim.o.undofile = true
 vim.o.updatetime = 250
@@ -156,10 +154,10 @@ vim.keymap.set("n", "<c-w><c-w>", ":w!<CR>", { noremap = true, silent=true })
 vim.keymap.set("n", "<c-q><c-q>", ":q!<CR>", { noremap = true, silent=true })
 
 -- better window movement
-vim.keymap.set("n", "<C-h>", "<C-w>h", { silent = true })
-vim.keymap.set("n", "<C-j>", "<C-w>j", { silent = true })
-vim.keymap.set("n", "<C-k>", "<C-w>k", { silent = true })
-vim.keymap.set("n", "<C-l>", "<C-w>l", { silent = true })
+-- vim.keymap.set("n", "<C-h>", "<C-w>h", { silent = true })
+-- vim.keymap.set("n", "<C-j>", "<C-w>j", { silent = true })
+-- vim.keymap.set("n", "<C-k>", "<C-w>k", { silent = true })
+-- vim.keymap.set("n", "<C-l>", "<C-w>l", { silent = true })
 
 -- better indenting
 vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
@@ -202,8 +200,9 @@ vim.keymap.set("n", "<c-s><c-x>", ":source %<CR>", { noremap = true, silent = tr
 
 -- packer
 vim.keymap.set("n", "<Leader>pi", ":PackerInstall<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>pd", ":PackerClean<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>pc", ":PackerClean<CR>", { noremap = true })
 vim.keymap.set("n", "<Leader>ps", ":PackerStatus<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>pu", ":PackerUpdate<CR>", { noremap = true })
 
 -- resize windows
 vim.keymap.set("n", "+", "<c-W>+", { noremap = true, silent=true })
@@ -223,7 +222,7 @@ vim.keymap.set("n", "<Leader>ti", ":!source .env | terraform init -no-color<CR>"
 vim.keymap.set("n", "<Leader>tp", ":!terraform plan -no-color -out=last_plan.bin > last_plan.log<CR>", { noremap = true })
 vim.keymap.set("n", "<Leader>ta", ":!terraform apply -no-color last_plan.bin<CR>", { noremap = true })
 vim.keymap.set("n", "<Leader>op", ":vsplit last_plan.log<CR>", { noremap = true })
---
+
 -- k8s
 vim.keymap.set("n", "<Leader>kad", ":!kubectl apply -f % --dry-run=client<CR>", { noremap = true })
 vim.keymap.set("n", "<Leader>ka", ":!kubectl apply -f %<CR>", { noremap = true })
@@ -401,6 +400,9 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
+-- exec commands
+vim.api.nvim_set_keymap("n", "<Leader>xb", ":!bash %<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>xn", ":!node %<CR>", { noremap = true })
 -- LSP settings.
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(_, bufnr)
@@ -454,8 +456,7 @@ end
 require('mason').setup()
 
 -- Enable the following language servers
--- Feel free to add/remove any LSPs that you want here. They will automatically be installed
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'sumneko_lua', 'gopls' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'lua_ls', 'bashls', 'gopls', 'ansiblels' }
 
 -- Ensure the servers above are installed
 require('mason-lspconfig').setup {
@@ -483,29 +484,33 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-require('lspconfig').sumneko_lua.setup {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT)
-        version = 'LuaJIT',
-        -- Setup your lua path
-        path = runtime_path,
-      },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        library = vim.api.nvim_get_runtime_file('', true),
-        checkThirdParty = false,
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = { enable = false },
-    },
-  },
-}
+ require('lspconfig').ansiblels.setup {
+   filetypes = {
+        "yaml",
+   },
+   settings = {
+     ansible = {
+       ansible = {
+         path = "ansible",
+         useFullyQualifiedCollectionNames = true
+       },
+       ansibleLint = {
+         enabled = true,
+         path = "ansible-lint"
+       },
+       executionEnvironment = {
+         enabled = false
+       },
+       python = {
+         interpreterPath = "python"
+       },
+       completion = {
+           provideRedirectModules = true,
+           provideModuleOptionAliases = true
+       }
+     },
+   },
+ }
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
