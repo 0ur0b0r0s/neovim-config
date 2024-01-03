@@ -1,10 +1,34 @@
-local o = vim.o
-local bo = vim.bo
-local wo = vim.wo
-local cmd = vim.cmd
+--
+-- See `:help vim.o`
+--
+vim.bo.autoindent = true
+vim.bo.smartindent = true
+vim.bo.swapfile = false
+vim.o.backup = false
+vim.o.errorbells = false
+vim.o.expandtab = true
+vim.o.hidden = true
+vim.o.hlsearch = false
+vim.o.ignorecase = true
+vim.o.incsearch = true
+vim.o.shiftwidth = 2
+vim.o.smartcase = true
+vim.o.softtabstop = 0
+vim.o.syntax = 'on'
+vim.o.tabstop = 2
+vim.o.termguicolors = true
+vim.o.undofile = true
+vim.o.updatetime = 250
+vim.o.wrap = false
+vim.o.completeopt = 'menuone,noselect'
+vim.o.undodir = vim.fn.stdpath('config') .. '/undodir'
+vim.wo.number = true
+vim.wo.relativenumber = true
+vim.wo.signcolumn = 'yes'
+vim.wo.wrap = false
 
-cmd [[
-        silent! colorscheme palenight
+vim.cmd [[
+        silent! colorscheme tokyonight-night
         autocmd ColorScheme * highlight Normal guibg=NONE ctermbg=NONE
         autocmd ColorScheme * highlight LineNr guibg=NONE guifg=white 
         autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
@@ -12,27 +36,6 @@ cmd [[
         autocmd FileType tf setlocal ts=2 sts=2 sw=2 expandtab
         autocmd FileType lua setlocal ts=2 sts=2 sw=2 expandtab
         autocmd FileType sh setlocal ts=2 sts=2 sw=2 expandtab
+        set laststatus=3
     ]]
-cmd('')
 
-o.termguicolors = true
-o.syntax = 'on'
-o.errorbells = false
-o.smartcase = true
-o.backup = false
-o.undodir = vim.fn.stdpath('config') .. '/undodir'
-o.undofile = true
-o.incsearch = true
-o.hidden = true
-o.tabstop = 4
-o.softtabstop = 0
-o.shiftwidth = 4
-o.expandtab = true
-o.hlsearch = false
-wo.number = true
-wo.relativenumber = true
-wo.signcolumn = 'yes'
-wo.wrap = false
-bo.swapfile = false
-bo.autoindent = true
-bo.smartindent = true
