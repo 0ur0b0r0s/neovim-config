@@ -26,9 +26,9 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = 'yes'
 vim.wo.wrap = false
+vim.cmd("colorscheme duskfox")
 
 vim.cmd [[
-        silent! colorscheme tokyonight-night
         autocmd ColorScheme * highlight Normal guibg=NONE ctermbg=NONE
         autocmd ColorScheme * highlight LineNr guibg=NONE guifg=white 
         autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
