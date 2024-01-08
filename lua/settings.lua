@@ -38,4 +38,3 @@ vim.cmd [[
         autocmd FileType sh setlocal ts=2 sts=2 sw=2 expandtab
         set laststatus=3
     ]]
-
