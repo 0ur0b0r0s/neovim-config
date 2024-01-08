@@ -51,11 +51,8 @@ vim.keymap.set("n", "<Leader>k", ":Gitsigns prev_hunk<CR>", { noremap = true, si
 vim.keymap.set("n", "<c-e><c-v>", ":tabnew ~/.config/nvim/init.lua<CR>", { noremap = true, silent=true })
 vim.keymap.set("n", "<c-s><c-x>", ":source %<CR>", { noremap = true, silent = true })
 
--- packer
-vim.keymap.set("n", "<Leader>pi", ":PackerInstall<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>pc", ":PackerClean<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>ps", ":PackerStatus<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>pu", ":PackerUpdate<CR>", { noremap = true })
+-- lazy.nvim
+vim.keymap.set("n", "<Leader><Leader>l", ":Lazy<CR>", { noremap = true })
 
 -- resize windows
 vim.keymap.set("n", "+", "<c-W>+", { noremap = true, silent=true })
@@ -85,9 +82,6 @@ vim.keymap.set("n", "<Leader>db", ":!docker-compose build<CR>", { noremap = true
 vim.keymap.set("n", "<Leader>du", ":!docker-compose up -d<CR>", { noremap = true })
 vim.keymap.set("n", "<Leader>dd", ":!docker-compose down<CR>", { noremap = true })
 vim.keymap.set("n", "<Leader>dr", ":!docker-compose restart<CR>", { noremap = true })
-
--- ChatGPT
-vim.keymap.set("n", "<Leader>cg", ":ChatGPT<CR>", { noremap = true })
 
 -- nvim-dap
 vim.keymap.set('n', '<Leader>dt', [[:lua require"dapui".toggle()<CR>]], { noremap = true })
@@ -120,7 +114,7 @@ end, { desc = '[/] Fuzzily search in current buffer]' })
 
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
-vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
+vim.keymap.set('n', '<leader>rg', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
