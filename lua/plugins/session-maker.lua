@@ -3,7 +3,7 @@ local pickers = require'telescope.pickers'
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 local conf = require'telescope.config'.values
-local directory = "/home/kr4k3n/.config/nvim/sessions/"
+local directory = "~/.config/nvim/sessions/"
 
 local session = function(opts)
   opts = opts or {}
