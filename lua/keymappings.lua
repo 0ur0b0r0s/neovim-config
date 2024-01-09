@@ -58,8 +58,8 @@ vim.keymap.set("n", "<c-p><c-p>", "\"+p", { silent=true })
 vim.keymap.set("n", "Y", "y$", { noremap = true, silent=true })
 
 -- sessions
-vim.keymap.set("n", "<Leader>sc", ":mksession! ~/.config/nvim/sessions/", { noremap = true })
-vim.keymap.set("n", "<Leader>ss", ":luafile lua/plugins/session-loader.lua<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>sc", ":luafile ~/.config/nvim/lua/plugins/session-maker.lua<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>ss", ":luafile ~/.config/nvim/lua/plugins/session-loader.lua<CR>", { noremap = true })
 
 -- terraform
 vim.keymap.set("n", "<Leader>ti", ":!source .env | terraform init -no-color<CR>", { noremap = true })
