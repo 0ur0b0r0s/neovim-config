@@ -3,7 +3,7 @@ local pickers = require'telescope.pickers'
 local actions = require "telescope.actions"
 local action_state = require "telescope.actions.state"
 local conf = require'telescope.config'.values
-local directory = "/home/kr4k3n/.config/nvim/sessions/"
+local directory = "~/.config/nvim/sessions/"
 
 local function sessions(opts)
   opts = opts or {}
@@ -11,7 +11,7 @@ local function sessions(opts)
   local file_list = vim.fn.systemlist('find ' .. vim.fn.fnameescape(directory) .. ' -mindepth 1 -type f -exec basename {} \\;')
 
   pickers.new(opts, {
-    prompt_title = 'Sessions',
+    prompt_title = 'available sessions',
     finder = finders.new_table { results = file_list },
     sorter = conf.file_sorter({}),
     attach_mappings = function(prompt_bufnr, map)
