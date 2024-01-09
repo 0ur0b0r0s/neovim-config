@@ -6,12 +6,6 @@ vim.keymap.set("n", "<c-w><c-q>", ":wq<CR>", { noremap = true, silent=true })
 vim.keymap.set("n", "<c-w><c-w>", ":w!<CR>", { noremap = true, silent=true })
 vim.keymap.set("n", "<c-q><c-q>", ":q!<CR>", { noremap = true, silent=true })
 
--- better window movement
--- vim.keymap.set("n", "<C-h>", "<C-w>h", { silent = true })
--- vim.keymap.set("n", "<C-j>", "<C-w>j", { silent = true })
--- vim.keymap.set("n", "<C-k>", "<C-w>k", { silent = true })
--- vim.keymap.set("n", "<C-l>", "<C-w>l", { silent = true })
-
 -- better indenting
 vim.keymap.set("v", "<", "<gv", { noremap = true, silent = true })
 vim.keymap.set("v", ">", ">gv", { noremap = true, silent = true })
@@ -65,7 +59,7 @@ vim.keymap.set("n", "Y", "y$", { noremap = true, silent=true })
 
 -- sessions
 vim.keymap.set("n", "<Leader>sc", ":mksession! ~/.config/nvim/sessions/", { noremap = true })
-vim.keymap.set("n", "<Leader>ss", ":bufdo bwipeout | source ~/.config/nvim/sessions/", { noremap = true })
+vim.keymap.set("n", "<Leader>ss", ":luafile lua/plugins/session-loader.lua<CR>", { noremap = true })
 
 -- terraform
 vim.keymap.set("n", "<Leader>ti", ":!source .env | terraform init -no-color<CR>", { noremap = true })
@@ -128,3 +122,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 -- exec commands
 vim.api.nvim_set_keymap("n", "<Leader>xb", ":!bash %<CR>", { noremap = true })
 vim.api.nvim_set_keymap("n", "<Leader>xn", ":!node %<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<Leader>xl", ":luafile %<CR>", { noremap = true })
+
+
+vim.api.nvim_set_keymap("n", "<Leader>mm", ":messages<CR>", { noremap = true })
