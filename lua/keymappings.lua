@@ -58,9 +58,10 @@ vim.keymap.set("n", "<c-p><c-p>", "\"+p", { silent=true })
 vim.keymap.set("n", "Y", "y$", { noremap = true, silent=true })
 
 -- sessions
-vim.keymap.set("n", "<Leader>sc", ":luafile ~/.config/nvim/lua/plugins/session-maker.lua<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>ss", ":luafile ~/.config/nvim/lua/plugins/session-loader.lua<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>sd", ":luafile ~/.config/nvim/lua/plugins/session-deleter.lua<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>sc", ":lua require('plugins.better-sessions').makeSession(require('telescope.themes').get_dropdown{})<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>ss", ":lua require('plugins.better-sessions').loadSession(require('telescope.themes').get_dropdown{})<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>S", ":lua require('plugins.better-sessions').saveSession(require('telescope.themes').get_dropdown{})<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>sd", ":lua require('plugins.better-sessions').deleteSession(require('telescope.themes').get_dropdown{})<CR>", { noremap = true })
 
 -- terraform
 vim.keymap.set("n", "<Leader>ti", ":!source .env | terraform init -no-color<CR>", { noremap = true })
