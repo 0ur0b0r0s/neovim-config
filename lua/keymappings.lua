@@ -64,10 +64,8 @@ vim.keymap.set("n", "<Leader>S", ":lua require('plugins.better-sessions').saveSe
 vim.keymap.set("n", "<Leader>sd", ":lua require('plugins.better-sessions').deleteSession(require('telescope.themes').get_dropdown{})<CR>", { noremap = true })
 
 -- terraform
-vim.keymap.set("n", "<Leader>ti", ":!source .env | terraform init -no-color<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>tp", ":!terraform plan -no-color -out=last_plan.bin > last_plan.log<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>ta", ":!terraform apply -no-color last_plan.bin<CR>", { noremap = true })
-vim.keymap.set("n", "<Leader>op", ":vsplit last_plan.log<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>tp", ":lua require('plugins.better-terraform-plan').terraformPlan(require('telescope.themes').get_dropdown{})<CR>", { noremap = true })
+vim.keymap.set("n", "<Leader>ti", ":!terraform init -upgrade -no-color<CR>", { noremap = true })
 
 -- k8s
 vim.keymap.set("n", "<Leader>kad", ":!kubectl apply -f % --dry-run=client<CR>", { noremap = true })
