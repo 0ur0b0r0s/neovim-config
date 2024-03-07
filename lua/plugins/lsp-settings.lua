@@ -55,43 +55,64 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-  require'lspconfig'.lua_ls.setup {
+require'lspconfig'.lua_ls.setup {
+  on_init = function(client)
+    local path = client.workspace_folders[1].name
+    if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
+      client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
+        Lua = {
+          runtime = {
+            -- Tell the language server which version of Lua you're using
+            -- (most likely LuaJIT in the case of Neovim)
+            version = 'LuaJIT'
+          },
+          -- Make the server aware of Neovim runtime files
+          workspace = {
+            checkThirdParty = false,
+            library = {
+              vim.env.VIMRUNTIME
+              -- "${3rd}/luv/library"
+              -- "${3rd}/busted/library",
+            }
+            -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+            -- library = vim.api.nvim_get_runtime_file("", true)
+          }
+        }
+      })
+
+      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+    end
+    return true
+  end
+}
+
+  require('lspconfig').ansiblels.setup {
+    filetypes = {
+         "yaml",
+    },
     settings = {
-      Lua = {
-        diagnostics = {
-          globals = {'vim'},
+      ansible = {
+        ansible = {
+          path = "ansible",
+          useFullyQualifiedCollectionNames = true
         },
+        ansibleLint = {
+          enabled = true,
+          path = "ansible-lint"
+        },
+        executionEnvironment = {
+          enabled = false
+        },
+        python = {
+          interpreterPath = "python"
+        },
+        completion = {
+            provideRedirectModules = true,
+            provideModuleOptionAliases = true
+        }
       },
     },
   }
-
- require('lspconfig').ansiblels.setup {
-   filetypes = {
-        "yaml",
-   },
-   settings = {
-     ansible = {
-       ansible = {
-         path = "ansible",
-         useFullyQualifiedCollectionNames = true
-       },
-       ansibleLint = {
-         enabled = true,
-         path = "ansible-lint"
-       },
-       executionEnvironment = {
-         enabled = false
-       },
-       python = {
-         interpreterPath = "python"
-       },
-       completion = {
-           provideRedirectModules = true,
-           provideModuleOptionAliases = true
-       }
-     },
-   },
- }
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
@@ -138,3 +159,29 @@ cmp.setup {
     { name = 'cmdline', keyword_length=3 },
   },
 }
+
+require('lspconfig').gopls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = {"gopls"},
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  settings = {
+    gopls = {
+      completeUnimported = true,
+      usePlaceholders = true,
+      analyses = {
+        unusedparams = true,
+      },
+    },
+  },
+}
+
+require('lspconfig').marksman.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  cmd = { "marksman", "server" },
+  filetypes = { "markdown", "markdown.mdx" },
+  single_file_support = true
+}
+require('lspconfig').terraformls.setup{}
+require'lspconfig'.tflint.setup{}

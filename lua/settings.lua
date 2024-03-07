@@ -4,6 +4,7 @@
 vim.bo.autoindent = true
 vim.bo.smartindent = true
 vim.bo.swapfile = false
+vim.opt.swapfile = false
 vim.o.backup = false
 vim.o.errorbells = false
 vim.o.expandtab = true
