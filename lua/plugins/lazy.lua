@@ -16,11 +16,12 @@ local plugins = {
   {
   'neovim/nvim-lspconfig',
   dependencies = {
+    -- 'folke/blink.cmp',
+    -- 'folke/lazydev.nvim',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'j-hui/fidget.nvim', }
   },
-
   {
   'hrsh7th/nvim-cmp',
   dependencies = {
@@ -52,10 +53,14 @@ local plugins = {
   'nvim-lualine/lualine.nvim',
   'numToStr/Comment.nvim',
   'tpope/vim-sleuth',
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
   { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 },
   'EdenEast/nightfox.nvim',
   'lukas-reineke/indent-blankline.nvim',
+  'xiyaowong/transparent.nvim',
+  'epwalsh/obsidian.nvim',
+  'Saghen/blink.cmp'
 }
 
 local opts = {}

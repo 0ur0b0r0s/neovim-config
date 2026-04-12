@@ -20,9 +20,9 @@ local on_attach = function(_, bufnr)
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap( wa'<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, '[W]orkspace [L]ist Folders')
+  -- nmap( wa'<leader>wl', function()
+  --   print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  -- end, '[W]orkspace [L]ist Folders')
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     if vim.lsp.buf.format then
       vim.lsp.buf.format()
@@ -33,7 +33,7 @@ local on_attach = function(_, bufnr)
 end
 
 require('mason').setup()
-local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver', 'lua_ls', 'bashls', 'gopls', 'ansiblels' }
+local servers = { 'clangd', 'rust_analyzer', 'pyright', 'ts_ls', 'lua_ls', 'bashls', 'gopls', 'ansiblels' }
 
 require('mason-lspconfig').setup {
   ensure_installed = servers,
@@ -43,10 +43,10 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 for _, lsp in ipairs(servers) do
-  require('lspconfig')[lsp].setup {
+  vim.lsp.config(lsp, {
     on_attach = on_attach,
     capabilities = capabilities,
-  }
+  })
 end
 
 require('fidget').setup()
@@ -55,12 +55,15 @@ local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, 'lua/?.lua')
 table.insert(runtime_path, 'lua/?/init.lua')
 
-require'lspconfig'.lua_ls.setup {
+vim.lsp.config('lua_ls', {
   on_init = function(client)
     local path = client.workspace_folders[1].name
     if not vim.loop.fs_stat(path..'/.luarc.json') and not vim.loop.fs_stat(path..'/.luarc.jsonc') then
       client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
         Lua = {
+          diagnostics = {
+            globals = { "vim" },
+          },
           runtime = {
             -- Tell the language server which version of Lua you're using
             -- (most likely LuaJIT in the case of Neovim)
@@ -80,13 +83,13 @@ require'lspconfig'.lua_ls.setup {
         }
       })
 
-      client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
+      client:notify("workspace/didChangeConfiguration", { settings = client.config.settings })
     end
     return true
   end
-}
+})
 
-  require('lspconfig').ansiblels.setup {
+  vim.lsp.config('ansiblels', {
     filetypes = {
          "yaml",
     },
@@ -112,7 +115,7 @@ require'lspconfig'.lua_ls.setup {
         }
       },
     },
-  }
+  })
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
@@ -160,7 +163,7 @@ cmp.setup {
   },
 }
 
-require('lspconfig').gopls.setup {
+vim.lsp.config('gopls', {
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = {"gopls"},
@@ -174,14 +177,20 @@ require('lspconfig').gopls.setup {
       },
     },
   },
-}
+})
 
-require('lspconfig').marksman.setup {
+vim.lsp.config('marksman', {
   on_attach = on_attach,
   capabilities = capabilities,
   cmd = { "marksman", "server" },
   filetypes = { "markdown", "markdown.mdx" },
   single_file_support = true
-}
-require('lspconfig').terraformls.setup{}
-require'lspconfig'.tflint.setup{}
+})
+
+--#vim.lsp.config('dartls', ({
+--#  cmd = { "/usr/bin/dart", 'language-server', '--protocol=lsp' },
+--#}))
+
+vim.lsp.config('terraformls', {})
+vim.lsp.config('tflint', {})
+vim.lsp.config('bashls', {})
