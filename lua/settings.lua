@@ -27,6 +27,16 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.signcolumn = 'yes'
 vim.wo.wrap = false
+vim.opt_local.conceallevel = 2
+vim.g.neovim_did_dsr = 1
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
+vim.opt.termencoding = nil
+vim.opt.fillchars = {
+  horiz = "-",
+  vert = "|",
+  eob = " ",
+}
 vim.cmd("colorscheme duskfox")
 
 vim.cmd [[

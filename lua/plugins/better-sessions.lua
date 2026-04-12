@@ -30,7 +30,7 @@ end
 local function saveSession(opts)
   opts = opts or {}
 
-  local file_list = vim.fn.systemlist('find ' .. vim.fn.fnameescape(directory) .. ' -mindepth 1 -type f -exec basename {} \\;')
+  local file_list = vim.fn.systemlist('find ' .. vim.fn.fnameescape(directory) .. ' -mindepth 1 -type f -exec basename {} \\; | sed "s/\\.vim//g"')
 
   pickers.new(opts, {
     prompt_title = 'save session',
@@ -41,7 +41,7 @@ local function saveSession(opts)
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()
 
-        vim.cmd('mks! ' .. vim.fn.fnameescape(directory .. '/' .. selection[1]))
+        vim.cmd('mks! ' .. vim.fn.fnameescape(directory .. '/' .. selection[1]) .. ".vim")
       end)
       return true
     end,
@@ -51,7 +51,7 @@ end
 local function loadSession(opts)
   opts = opts or {}
 
-  local file_list = vim.fn.systemlist('find ' .. vim.fn.fnameescape(directory) .. ' -mindepth 1 -type f -exec basename {} \\;')
+  local file_list = vim.fn.systemlist('find ' .. vim.fn.fnameescape(directory) .. ' -mindepth 1 -type f -exec basename {} \\; | sed "s/\\.vim//g"')
 
   pickers.new(opts, {
     prompt_title = 'load session',
@@ -66,7 +66,7 @@ local function loadSession(opts)
             vim.api.nvim_buf_delete(bufnr, { force = true })
         end
 
-        vim.cmd('source ' .. vim.fn.fnameescape(directory .. '/' .. selection[1]))
+        vim.cmd('source ' .. vim.fn.fnameescape(directory .. '/' .. selection[1]) .. ".vim")
       end)
       return true
     end,
@@ -76,7 +76,7 @@ end
 local function deleteSession(opts)
   opts = opts or {}
 
-  local file_list = vim.fn.systemlist('find ' .. vim.fn.fnameescape(directory) .. ' -mindepth 1 -type f -exec basename {} \\;')
+  local file_list = vim.fn.systemlist('find ' .. vim.fn.fnameescape(directory) .. ' -mindepth 1 -type f -exec basename {} \\; | sed "s/\\.vim//g"')
 
   pickers.new(opts, {
     prompt_title = 'delete session',
@@ -87,7 +87,7 @@ local function deleteSession(opts)
         actions.close(prompt_bufnr)
         local selection = action_state.get_selected_entry()
 
-        vim.cmd('silent !rm ' .. vim.fn.fnameescape(directory .. '/' .. selection[1]))
+        vim.cmd('silent !rm ' .. vim.fn.fnameescape(directory .. '/' .. selection[1]) .. ".vim")
       end)
       return true
     end,
